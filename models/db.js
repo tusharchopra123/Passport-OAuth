@@ -13,7 +13,7 @@ const db = new Sequelize(keys.mysql.DATABASE,keys.mysql.USER ,keys.mysql.PASSWOR
   }
 })
 const User = db.define('User',{
-    googleId:{
+    userId:{
         type: Sequelize.STRING,
     },
     username: {
@@ -21,10 +21,12 @@ const User = db.define('User',{
     },
     thumbnail: {
         type: Sequelize.STRING,
+    },authenticationType:{
+        type:Sequelize.STRING
     }
 })
-// const User_facebook = db.define('User_facebook',{
-//     facebookId:{
+//  const User_facebook = db.define('User_facebook',{
+//      facebookId:{
 //         type: Sequelize.STRING,
 //     },
 //     username: {

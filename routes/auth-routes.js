@@ -14,10 +14,10 @@ route.get('/logout',(req,res)=>{
 route.get('/google',passport.authenticate('google',{
     scope:['profile']
 }))
-//route.get('/facebook',passport.authenticate('facebook'))
-// route.get('/facebook/redirect',passport.authenticate('facebook'),{failureRedirect: '/login'},(req,res)=>{
-//     res.redirect('/profile/')
-// })
+route.get('/facebook',passport.authenticate('facebook'))
+route.get('/facebook/redirect',passport.authenticate('facebook',{failureRedirect: '/login'}),(req,res)=>{
+     res.redirect('/profile/')
+})
 
 //calback route for google to redirect
 route.get('/google/redirect',passport.authenticate('google'),(req,res)=>{
