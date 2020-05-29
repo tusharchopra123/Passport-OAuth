@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <!-- Latest compiled and minified bootstap CSS -->
+<link rel="stylesheet" href="./login.css" >
+
+</head>
+
+<body>
+ 
+    <div id="#Login">
+        <br>
+        <div class="row">
+        <div class="col-sm-3"></div>    
+        <div class="col-sm-6" ><br>
+            <h1 class="centre head">LOGIN</h1>
+            <a href="#" class="centre"> New User ? Sign Up </a>
+            <br>
+            <div class="card row">
+              <div class="col-sm-6 parent">
+                <div class="child">
+                  <br><br><br><br>
+                <button class="log facebook">
+                    Continue with Facebook
+                </button>
+                <br><br>
+                <button class="log google">
+                  Continue with Google&nbsp&nbsp&nbsp&nbsp
+                </button>
+                </div>
+              </div>
+
+
+              <div class="col-sm-6 bord">
+            <div class="card-body">
+            <form>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <a href="#" style="float: right;" class="card-link">Forget Password ?</a><br>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+            </div>
+            
+            <button type="button" class="btn">Log IN</button>
+            <div>
+            </form>
+          </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+        </div> 
+    </div>
+<script>
+  const acc = new Vue({
+      el: "#Login",
+      data: {
+        link:'',
+      },created:function(){
+               this.load();
+      },
+      methods:{
+        load:function(){
+                   
+            },
+      }
+  })  
+      
+ 
+</script>
+</body>
+</html>
