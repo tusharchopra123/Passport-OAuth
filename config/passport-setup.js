@@ -50,6 +50,7 @@ passport.use(
                     userId:profile.id,
                     username:profile.displayName,
                     thumbnail:profile._json.picture,
+                    emailId:profile._json.email,
                     authenticationType:'Google'
                 }).then((newUser)=>{
                     console.log('new User Created',newUser)
@@ -103,6 +104,7 @@ passport.use(new FacebookStrategy({
                      userId:profile.id,
                      username:profile.displayName,
                      thumbnail:profile._json.picture.data.url,
+                     emailId:profile._json.email,
                      authenticationType:'Facebook'
                  }).then((newUser)=>{
                      console.log('new User Created',newUser)

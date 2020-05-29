@@ -21,7 +21,10 @@ const User = db.define('User',{
     },
     thumbnail: {
         type: Sequelize.STRING,
-    },authenticationType:{
+    },emailId:{
+        type:Sequelize.STRING
+    }
+    ,authenticationType:{
         type:Sequelize.STRING
     }
 })

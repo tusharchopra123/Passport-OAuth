@@ -12,11 +12,13 @@ route.get('/logout',(req,res)=>{
 })  
 //auth with google
 route.get('/google',passport.authenticate('google',{
-    scope:['profile']
+    scope:['profile','email']
 }))
-route.get('/facebook',passport.authenticate('facebook'))
+route.get('/facebook',passport.authenticate('facebook',{
+    scope: ['user_friends', 'email', 'public_profile']
+}))
 route.get('/facebook/redirect',passport.authenticate('facebook',{failureRedirect: '/login'}),(req,res)=>{
-     res.redirect('/profile/')
+    res.redirect('/profile/')
 })
 
 //calback route for google to redirect
