@@ -8,13 +8,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue"></script>
   <!-- Latest compiled and minified bootstap CSS -->
-<link rel="stylesheet" href="./login.css" >
+<link rel="stylesheet" href="http://localhost:7760/signup/css" >
 
 </head>
 
 <body>
  
-    <div id="#Sign">
+    <div id="Sign">
         <br>
         <div class="row">
         <div class="col-sm-3"></div>    
@@ -42,25 +42,51 @@
             <form method="post" action="/auth/signup">
             <div class="form-group">
                 <label for="exampleInputEmail1">Full Name</label>
+<<<<<<< HEAD
                 <input type="text" name="fullname"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter full name">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Username</label>
               <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username">
+=======
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="name" placeholder="Enter full name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Username</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="username" placeholder="Enter username">
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
            </div>
             <div class="form-group">
+                    
                     <label for="exampleInputEmail1">Email address</label>
+<<<<<<< HEAD
                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+=======
+                    <div error-tip="Enter Valid Email" v-bind:if='validemail'>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email" placeholder="Enter email">
+                    </div>
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
+<<<<<<< HEAD
                 <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
            </div>
             
             
             <button type="Submit" class="btn">Sign Up</button>
             <div>
+=======
+                <div error-tip="Enter 8 character or long password" v-bind:if='validpassword'>
+                <input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
+              </div>
+            </div>
+            
+            <div><button type="button" @click="submit()" class="btn">Sign Up</button></div>
+            
+            
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
             </form>
           </div>
             </div>
@@ -69,11 +95,24 @@
         <div class="col-sm-3"></div>
         </div> 
     </div>
+<<<<<<< HEAD
 <!-- <script>
+=======
+  </div>
+  </div>
+
+</body>
+<script>
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
   const acc = new Vue({
       el: "#Sign",
       data: {
-        link:'',
+        name:'',
+        email:'',
+        username:'',
+        password:'',
+        validemail:1,
+        validpassword:1,
       },created:function(){
                this.load();
       },
@@ -81,10 +120,46 @@
         load:function(){
                    
             },
+            checkemail(email){
+              if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+                this.validemail=1;
+                return (true)
+              }else{
+                	this.validemail=0;
+                return (false)
+              }
+              },
+            checkpassword(pass){
+              if(pass.length>8){
+                this.validpassword=1
+                return true;
+              }else{
+                this.validpassword=0;
+                return false;
+              }
+              
+            },
+            submit(){              
+              if(this.checkemail(this.email) && this.checkpassword(this.password)){
+              
+              $.post('/signup', {
+              name: this.name.toUpperCase(),
+              email:this.email.toLowerCase(),
+              password:this.password,
+              username:this.username,
+              }, function (data) {
+              
+            })
+              }
+            }
       }
   })  
       
  
+<<<<<<< HEAD
 </script> -->
 </body>
+=======
+</script>
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
 </html>

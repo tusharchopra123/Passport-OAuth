@@ -8,13 +8,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue"></script>
   <!-- Latest compiled and minified bootstap CSS -->
-<link rel="stylesheet" href="./login.css" >
+<link rel="stylesheet" href="http://localhost:7760/signup/css" >
 
 </head>
 
 <body>
  
-    <div id="#Login">
+    <div id="Login">
         <br>
         <div class="row">
         <div class="col-sm-3"></div>    
@@ -42,12 +42,26 @@
             <form method="POST" action="/auth/local">
             <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
+<<<<<<< HEAD
                     <input type="email" name = "username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+=======
+              <div data-tip="Enter Email" v-bind:if='validemail'>
+                <div  error-tip="Enter Valid Email" v-bind:if='validemail'>
+                    <input type="email" class="form-control" v-model="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              </div></div>
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
+<<<<<<< HEAD
                 <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+=======
+                <div data-tip="Enter Password" v-bind:if='validpassword'>
+                <div error-tip="Enter 8 character or long password" v-bind:if='validpassword'>
+                  <input type="password" class="form-control" v-model="password" id="exampleInputPassword1" placeholder="Password">
+              </div></div>
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
                 <a href="#" style="float: right;" class="card-link">Forget Password ?</a><br>
             </div>
             <div class="form-check">
@@ -55,7 +69,11 @@
                 <label class="form-check-label" for="exampleCheck1">Remember Me</label>
             </div>
             
+<<<<<<< HEAD
             <button type="submit" class="btn">Log IN</button>
+=======
+            <button type="button" @click="submit()" class="btn">Log IN</button>
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
             <div>
             </form>
           </div>
@@ -65,18 +83,52 @@
         <div class="col-sm-3"></div>
         </div> 
     </div>
+    </div>
 <script>
   const acc = new Vue({
       el: "#Login",
       data: {
+        email:'',
+        password:'',
         link:'',
+        validemail:1,
+        validpassword:1,
       },created:function(){
                this.load();
       },
       methods:{
         load:function(){
                    
+            },checkemail(email){
+              if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+                this.validemail=1;
+                return (true)
+              }else{
+                	this.validemail=0;
+                return (false)
+              }
+              },
+            checkpassword(pass){
+              if(pass.length>8){
+                this.validpassword=1
+                return true;
+              }else{
+                this.validpassword=0;
+                return false;
+              }
+              
             },
+            submit(){              
+              if(this.checkemail(this.email) && this.checkpassword(this.password)){
+              
+              $.post('/signup', {
+              email:this.email.toLowerCase(),
+              password:this.password,
+              }, function (data) {
+              
+              })
+            }
+            }
       }
   })  
       

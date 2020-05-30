@@ -28,7 +28,7 @@ mongoose.connect(keys.mongodb.dbURI,()=>{
 app.use('/auth',authroutes)
 app.use('/profile',profileroutes)
 
-app.use('/demo',require('./routes/api').route)
+app.use('/',require('./routes/api').route)
 //creaet home route
 app.get('/',(req,res)=>{
     res.render('home',{user:req.user})

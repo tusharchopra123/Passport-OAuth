@@ -12,10 +12,17 @@ const db = new Sequelize(keys.mysql.DATABASE,keys.mysql.USER ,keys.mysql.PASSWOR
     idle: 10000
   }
 })
-const User = db.define('User',{
+const User = db.define('User_local',{
     userId:{
+<<<<<<< HEAD
         type: Sequelize.STRING,
         allowNULL:true
+=======
+        type: Sequelize.INTEGER,
+        primaryKey:true,
+        allowNull:false,
+        autoIncrement: true,
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
     },
     username: {
         type:Sequelize.STRING,
@@ -30,6 +37,7 @@ const User = db.define('User',{
     }
     ,authenticationType:{
         type:Sequelize.STRING
+<<<<<<< HEAD
     },
     password:{
         type:Sequelize.STRING,
@@ -37,7 +45,18 @@ const User = db.define('User',{
     },fullname:{
         type:Sequelize.STRING,
         allowNULL:false
+=======
+    },salt:{
+        type:Sequelize.STRING
+    },authenticationType:{
+        type:Sequelize.STRING
+    },valid:{
+        type:Sequelize.STRING
+    },password:{
+        type:Sequelize.STRING
+>>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
     }
+
 })
 //  const User_facebook = db.define('User_facebook',{
 //      facebookId:{
@@ -52,7 +71,7 @@ const User = db.define('User',{
 // })
 db.sync()
     .then(() => console.log("Database has been synced"))
-    .catch((err) => console.error("Error creating database"))
+    .catch((err) => console.error("Error creating database "+err))
 exports = module.exports = {
     User
     }
