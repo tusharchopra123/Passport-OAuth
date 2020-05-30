@@ -49,7 +49,7 @@ route.get('/failureDirect',(req,res)=>{
 route.get('/successDirect',(req,res)=>{
     res.status(200).send('true');
 })
- route.post('/local',passport.authenticate('login',{
+route.post('/local',passport.authenticate('login',{
     successRedirect: '/auth/successDirect',
     failureRedirect: '/auth/failureDirect',
     failureFlash: true
