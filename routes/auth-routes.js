@@ -1,5 +1,5 @@
 const route = require('express').Router();
-
+var crypto = require('crypto'); 
 
 // const flash = require('connect-flash')
 // route.use(flash())
@@ -46,9 +46,32 @@ route.post('/signup',passport.authenticate('signup',{
 route.get('/local',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'),{user:req.user})
 })
- route.post('/local',passport.authenticate('login',{
-    successRedirect: '/profile',
-    failureRedirect: '/auth/local',
+
+ route.post('/local',(req,res,next)=>{
+     var salti='';
+     var hash='';
+     var hash_created='';
+    User.findOne({where:{emailId  : req.body.username}}) 
+    .then((user)=>{
+        salti=user.salt
+        hash=user.password  
+        hash_created = crypto.pbkdf2Sync(req.body.password,salti, 1000, 64,`sha512`).toString(`hex`); 
+    }).catch((err)=>{
+        //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
+        return (err)
+    })
+    if(hash_created==hash){
+        console.log("Correct Password")
+    }
+    if(hash_created!=hash){
+        res.status(500).send({
+            error: "Wrong Password"
+        })
+    }
+    next()
+},passport.authenticate('login',{
+    successRedirect: 'http://localhost:7760/profile',
+    failureRedirect: '/login',
  }))
 // passport.authenticate('local',{
 //     successRedirect: '/profile',

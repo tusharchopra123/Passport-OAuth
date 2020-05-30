@@ -39,29 +39,21 @@
 
               <div class="col-sm-6 bord">
             <div class="card-body">
-            <form method="POST" action="/auth/local">
+            <form>
             <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-<<<<<<< HEAD
-                    <input type="email" name = "username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-=======
               <div data-tip="Enter Email" v-bind:if='validemail'>
                 <div  error-tip="Enter Valid Email" v-bind:if='validemail'>
                     <input type="email" class="form-control" v-model="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
               </div></div>
->>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-<<<<<<< HEAD
-                <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-=======
                 <div data-tip="Enter Password" v-bind:if='validpassword'>
                 <div error-tip="Enter 8 character or long password" v-bind:if='validpassword'>
                   <input type="password" class="form-control" v-model="password" id="exampleInputPassword1" placeholder="Password">
               </div></div>
->>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
                 <a href="#" style="float: right;" class="card-link">Forget Password ?</a><br>
             </div>
             <div class="form-check">
@@ -69,11 +61,7 @@
                 <label class="form-check-label" for="exampleCheck1">Remember Me</label>
             </div>
             
-<<<<<<< HEAD
-            <button type="submit" class="btn">Log IN</button>
-=======
             <button type="button" @click="submit()" class="btn">Log IN</button>
->>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
             <div>
             </form>
           </div>
@@ -121,11 +109,11 @@
             submit(){              
               if(this.checkemail(this.email) && this.checkpassword(this.password)){
               
-              $.post('/signup', {
-              email:this.email.toLowerCase(),
+              $.post('/auth/local', {
+              username:this.email.toLowerCase(),
               password:this.password,
               }, function (data) {
-              
+                
               })
             }
             }

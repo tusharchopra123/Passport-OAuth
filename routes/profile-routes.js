@@ -9,13 +9,13 @@ function isEmpty(obj) {
 const authCheck = (req,res,next)=>{
     if(isEmpty(req.user)){
         //user is not logged in
-        res.redirect('/auth/login')
+        res.redirect('/login')
     }else{
         //if logged in
         next()
     }
 }
-route.get('/',authCheck,(req,res)=>{
+route.get('/',(req,res)=>{
     res.render('profile',{user:req.user[0]})
     //res.status(200).send({ message: req.user[0].username });
 })

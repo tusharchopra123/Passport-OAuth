@@ -14,15 +14,8 @@ const db = new Sequelize(keys.mysql.DATABASE,keys.mysql.USER ,keys.mysql.PASSWOR
 })
 const User = db.define('User_local',{
     userId:{
-<<<<<<< HEAD
         type: Sequelize.STRING,
         allowNULL:true
-=======
-        type: Sequelize.INTEGER,
-        primaryKey:true,
-        allowNull:false,
-        autoIncrement: true,
->>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
     },
     username: {
         type:Sequelize.STRING,
@@ -37,7 +30,6 @@ const User = db.define('User_local',{
     }
     ,authenticationType:{
         type:Sequelize.STRING
-<<<<<<< HEAD
     },
     password:{
         type:Sequelize.STRING,
@@ -45,7 +37,6 @@ const User = db.define('User_local',{
     },fullname:{
         type:Sequelize.STRING,
         allowNULL:false
-=======
     },salt:{
         type:Sequelize.STRING
     },authenticationType:{
@@ -54,21 +45,10 @@ const User = db.define('User_local',{
         type:Sequelize.STRING
     },password:{
         type:Sequelize.STRING
->>>>>>> fd85e75ac2068052e101c0de4bcdb3c09909a4c5
     }
 
 })
-//  const User_facebook = db.define('User_facebook',{
-//      facebookId:{
-//         type: Sequelize.STRING,
-//     },
-//     username: {
-//         type:Sequelize.STRING,
-//     },
-//     thumbnail: {
-//         type: Sequelize.STRING,
-//     }
-// })
+
 db.sync()
     .then(() => console.log("Database has been synced"))
     .catch((err) => console.error("Error creating database "+err))

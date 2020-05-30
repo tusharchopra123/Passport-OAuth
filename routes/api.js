@@ -48,7 +48,7 @@ route.post('/signup',(req,res)=>{
     User.create({
         username:req.body.username,
         emailId:req.body.email,
-        name:req.body.name,
+        fullname:req.body.name,
         authenticationType:'local',
         salt:salt_1,
         password:hash_password,
