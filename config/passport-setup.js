@@ -3,6 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20')
 const FacebookStrategy = require('passport-facebook')
 const LocalStrategy = require('passport-local').Strategy
 const bCrypt = require('bcrypt')
+var crypto = require('crypto'); 
 const keys = require('./keys')
 //const User = require('../models/user-model')
 const Sequelize = require('sequelize')
@@ -17,8 +18,8 @@ function isEmpty(obj) {
     return true;
 }
 passport.serializeUser((user,done)=>{
-    console.log('here for serliase',user[0].id)
-    done(null,user[0].id)
+    console.log('here for serliase',user.id)
+    done(null,user.id)
 })
 passport.deserializeUser((id,done)=>{
     User.findAll({where: {id:id}})
@@ -115,14 +116,32 @@ passport.use(new FacebookStrategy({
 passport.use('login', new LocalStrategy({
     passReqToCallBack : true
   },(email, password, done)=> { 
-      console.log(email +"Autheticated")
-      User.findAll({where:{emailId  : email}}) 
-        .then((user)=>{
-             done(null,user)               
-        }).catch((err)=>{
-            console.log(err)
-            return done(err)
-        })
+    var salti='';
+    var hash='';
+    var hash_created='';
+      User.findOne({where:{emailId  :email}}) 
+      .then((user)=>{
+       salti=user.salt
+       hash=user.password  
+       hash_created = crypto.pbkdf2Sync(password,salti, 1000, 64,`sha512`).toString(`hex`); 
+       if(hash_created==hash){
+            console.log("Correct Password")
+            console.log(email +" Autheticated")
+            
+            done(null,user)
+       }
+       if(hash_created!=hash){
+        err="Wrong Password"
+        return done(err)
+       }
+       }).catch((err)=>{
+       //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
+       return done(err)
+      })
+      
+      
+     
+      
     
     
 }));

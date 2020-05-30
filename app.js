@@ -31,8 +31,10 @@ app.use('/profile',profileroutes)
 app.use('/',require('./routes/api').route)
 //creaet home route
 app.get('/',(req,res)=>{
-    res.render('home',{user:req.user})
-   
+    res.render('home',{user:req.user}) 
+})
+app.get('/success',(req,res)=>{
+    res.sendStatus(200);
 })
 
 
