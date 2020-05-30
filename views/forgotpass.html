@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <!-- Latest compiled and minified bootstap CSS -->
+<link rel="stylesheet" href="http://localhost:7760/forgotpassword/css" >
+
+</head>
+
+<body>
+ 
+    <div id="Forgot">
+        <div class="box">
+            <h1 class="title normal ng-binding">Reset Password</h1>
+            <label class="forgot-password-instructions content ng-binding" for="email">Enter your email address &amp; we'll send you a link to reset your password.</label><br>
+            <div error-tip="Enter Correct Email" v-bind:if="validemail">
+            <input class="form-control" placeholder="eg..,youremail@gmail.com" ></input>
+            </div>
+        </div>
+    </div>
+<script>
+  const acc = new Vue({
+      el: "#Forgot",
+      data: {
+          validemail:0,
+
+        
+      },created:function(){
+               this.load();
+      },
+      methods:{
+        load:function(){
+                   
+            },checkemail(email){
+              if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+                this.validemail=1;
+                return (true)
+              }else{
+                	this.validemail=0;
+                return (false)
+              }
+              },
+      }
+  })  
+      
+ 
+</script>
+</body>
+</html>

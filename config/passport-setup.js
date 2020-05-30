@@ -18,8 +18,8 @@ function isEmpty(obj) {
     return true;
 }
 passport.serializeUser((user,done)=>{
-    console.log('here for serliase',user.id)
-    done(null,user.id)
+    console.log('here for serliase',user[0].id)
+    done(null,user[0].id)
 })
 passport.deserializeUser((id,done)=>{
     User.findAll({where: {id:id}})
@@ -128,7 +128,7 @@ passport.use('login', new LocalStrategy({
             console.log("Correct Password")
             console.log(email +" Autheticated")
             
-            done(null,user)
+            done(null,[user])
        }
        if(hash_created!=hash){
         err="Wrong Password"

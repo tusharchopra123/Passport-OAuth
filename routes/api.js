@@ -13,13 +13,19 @@ route.get('/successRedirect',(req,res)=>{
     res.status(200).send('true');
 })
 route.get('/faliureRedirect',(req,res)=>{
-    res.status(200).send('true');
+    res.status(200).send('false');
 })
 route.get('/login',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'))
 })
 route.get('/signup/css',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.css'))
+})
+route.get('/forgotpassword',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/forgotpass.html'))
+})
+route.get('/forgotpassword/css',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/forgotpass.css'))
 })
 route.get('/activate',(req,res)=>{
     console.log(req.query.mail)
