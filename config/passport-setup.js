@@ -125,6 +125,10 @@ passport.use('login', new LocalStrategy({
     User.findOne({where:{emailId  :email}}) 
       .then((user)=>{
         var users =[user.dataValues];
+        console.log(users)
+        if(users[0].authenticationType=='local'&&users[0].valid=='0'){
+            return done(null,false,{message:"validate email"})
+        }
         if(users[0].authenticationType == 'Google'){
             return done(null,false,{message:"Login using google"})
         }else if(users[0].authenticationType == 'Facebook'){
