@@ -116,9 +116,11 @@
               password:this.password,
               }, function (data) {
                 console.log(data)
-                if(data=='true'){
+                if(data==='true'){
                   console.log("Hi")
                   window.location.href='http://localhost:7760/profile';
+                }else{
+                  window.alert("Entered Password Wrong")
                 }
               })
             }

@@ -1,8 +1,8 @@
 const route = require('express').Router();
 var crypto = require('crypto'); 
 
-// const flash = require('connect-flash')
-// route.use(flash())
+ const flash = require('connect-flash')
+ route.use(flash())
 const passport = require('passport')
 const path = require('path')
 const User = require('../models/db').User;
@@ -45,12 +45,13 @@ route.post('/signup',passport.authenticate('signup',{
 }))
 
 route.get('/local',(req,res)=>{
-    res.sendFile(path.join(__dirname,'../views/login.html'),{user:req.user})
+    console.log(req.flash('error'));
+    res.sendFile(path.join(__dirname,'../views/login.html'),{message:req.flash('error')})
 })
 
  route.post('/local',passport.authenticate('login',{
     successRedirect: '/successRedirect',
-    failureRedirect: '/faliureRedirect',
+    failureRedirect: '/auth/local',
     failureFlash: true
  }));
 // passport.authenticate('local',{

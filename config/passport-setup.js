@@ -44,8 +44,10 @@ passport.use(
         .then((currentUser)=>{
             if(!isEmpty(currentUser)){
                 //already user exist
-                let user  = JSON.stringify(currentUser);
+               // let user  = JSON.stringify(currentUser);
                 console.log('user is',currentUser)
+                
+               // console.log(user)
                // console.log(JSON.stringify(currentUser))
                 console.log(currentUser[0].id)
                 
@@ -119,11 +121,18 @@ passport.use('login', new LocalStrategy({
     var salti='';
     var hash='';
     var hash_created='';
-      User.findOne({where:{emailId  :email}}) 
+    User.findOne({where:{emailId  :email}}) 
       .then((user)=>{
+        var users =[user.dataValues];
+        if(users[0].authenticationType == 'Google'){
+            return done(null,false,{message:"Login using google"})
+        }else if(users[0].authenticationType == 'Facebook'){
+            return     done(null,false,{message:"Login using Faceboo"})}
        salti=user.salt
        hash=user.password  
        hash_created = crypto.pbkdf2Sync(password,salti, 1000, 64,`sha512`).toString(`hex`); 
+      
+    
        if(hash_created==hash){
             console.log("Correct Password")
             console.log(email +" Autheticated")
@@ -132,11 +141,11 @@ passport.use('login', new LocalStrategy({
        }
        if(hash_created!=hash){
         err="Wrong Password"
-        return done(err)
+        return done(null,false,{message:"Wrong Password"})
        }
        }).catch((err)=>{
        //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
-       return done(err)
+       return done(null,false,{message:"User Not exist"})
       })
       
       
