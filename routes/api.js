@@ -74,7 +74,7 @@ function sendmail(tomailid,hash,id){
     let mailDetails = { 
         from: keys.gmail.mail,
         to: tomailid, 
-        subject: 'Test mail', 
+        subject: 'Activate Your Account', 
         text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid,
     }; 
     // https://myaccount.google.com/lesssecureapps

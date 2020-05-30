@@ -26,11 +26,16 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
     font-weight: bold;
     width: 100px;
     border-radius: 20px;
+    outline:none;
 }
+.btn:active,
+.btn:focus,
 .btn:hover{
     background-color: #6bb4f3;
     color: white;
     font-weight: bold;
+    width: 100px;
+    outline:none;
 }
 .bord{
     border-left: 1px solid grey;
@@ -99,7 +104,7 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
   body{
     overflow-x: hidden
   }
-  [data-tip] {
+  [data-tip],[error-tip] {
 	position:relative;
 
 }
@@ -148,8 +153,56 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 	white-space:nowrap;
 	word-wrap:normal;
 }
-[data-tip]:hover:before,
-[data-tip]:hover:after {
+[data-tip][if='1']:hover:before,
+[data-tip][if='1']:hover:after {
 	display:block;
 }
- 
+[error-tip]:before {
+	content:'';
+	/* hides the tooltip when not hovered */
+	display:none;
+	content:'';
+	display:none;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #f33737;
+	position:absolute;
+	top:-85%;
+	left:35px;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+	position:absolute;
+	top:5%;
+	left:80%;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+[error-tip]:after {
+	display:none;
+	content:attr(error-tip);
+	position:absolute;
+	top:-76%;
+	left:70%;
+	padding:5px 8px;
+	background:#e61919;
+	color:#fff;
+	z-index:9;
+	font-size: 0.75em;
+	height:28px;
+	line-height:18px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+[error-tip][if='0']:before,
+[error-tip][if='0']:after {
+	display:block;
+} 
