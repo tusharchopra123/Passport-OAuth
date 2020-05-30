@@ -13,7 +13,7 @@ route.get('/successRedirect',(req,res)=>{
     res.status(200).send('true');
 })
 route.get('/faliureRedirect',(req,res)=>{
-    res.status(200).send('true');
+    res.status(200).send('false');
 })
 route.get('/login',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'))

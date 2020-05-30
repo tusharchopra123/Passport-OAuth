@@ -18,8 +18,9 @@ function isEmpty(obj) {
     return true;
 }
 passport.serializeUser((user,done)=>{
-    console.log('here for serliase',user.id)
-    done(null,user.id)
+    console.log('here for serliase',user[0].id)
+    console.log(user)
+    done(null,user[0].id)
 })
 passport.deserializeUser((id,done)=>{
     User.findAll({where: {id:id}})
@@ -44,8 +45,10 @@ passport.use(
         .then((currentUser)=>{
             if(!isEmpty(currentUser)){
                 //already user exist
-                let user  = JSON.stringify(currentUser);
+               // let user  = JSON.stringify(currentUser);
                 console.log('user is',currentUser)
+                
+               // console.log(user)
                // console.log(JSON.stringify(currentUser))
                 console.log(currentUser[0].id)
                 
@@ -121,6 +124,7 @@ passport.use('login', new LocalStrategy({
     var hash_created='';
       User.findOne({where:{emailId  :email}}) 
       .then((user)=>{
+        var users =[user.dataValues];
        salti=user.salt
        hash=user.password  
        hash_created = crypto.pbkdf2Sync(password,salti, 1000, 64,`sha512`).toString(`hex`); 
@@ -128,11 +132,11 @@ passport.use('login', new LocalStrategy({
             console.log("Correct Password")
             console.log(email +" Autheticated")
             
-            done(null,user)
+            done(null,users)
        }
        if(hash_created!=hash){
         err="Wrong Password"
-        return done(err)
+        return done(null,false,{message:"Wrong Password"})
        }
        }).catch((err)=>{
        //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
