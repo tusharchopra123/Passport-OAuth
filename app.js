@@ -20,10 +20,7 @@ app.use(cookieSession({
 //initialoze passport
 app.use(passport.initialize())
 app.use(passport.session())
-//connect to mongodb
-mongoose.connect(keys.mongodb.dbURI,()=>{
-    console.log("connected to mongodb")
-})
+
 //set up routes
 app.use('/auth',authroutes)
 app.use('/profile',profileroutes)
