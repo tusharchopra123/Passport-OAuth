@@ -41,8 +41,6 @@ route.post('/signup',passport.authenticate('signup',{
     failureFlash:true
 }))
 route.get('/local',(req,res)=>{
-    //console.log(req.flash('loginMessage'));
-    //console.log(req.flash('error'));
     res.sendFile(path.join(__dirname,'../views/login.html'),{message:req.flash('error')})
 })
 route.get('/failureDirect',(req,res)=>{
