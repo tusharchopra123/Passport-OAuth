@@ -45,14 +45,19 @@ route.post('/signup',passport.authenticate('signup',{
 }))
 
 route.get('/local',(req,res)=>{
-    console.log(req.flash('loginMessage'));
-    console.log(req.flash('error'));
+    //console.log(req.flash('loginMessage'));
+    //console.log(req.flash('error'));
     res.sendFile(path.join(__dirname,'../views/login.html'),{message:req.flash('error')})
 })
-
+route.get('/failureDirect',(req,res)=>{
+    console.log(req.flash('error'));
+})
+route.get('/successDirect',(req,res)=>{
+    res.status(200).send('true');
+})
  route.post('/local',passport.authenticate('login',{
-    successRedirect: '/successRedirect',
-    failureRedirect: '/auth/local',
+    successRedirect: '/auth/successDirect',
+    failureRedirect: '/auth/failureDirect',
     failureFlash: true
  }));
 // passport.authenticate('local',{
