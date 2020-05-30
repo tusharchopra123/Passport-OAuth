@@ -2,14 +2,9 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20')
 const FacebookStrategy = require('passport-facebook')
 const LocalStrategy = require('passport-local').Strategy
-const bCrypt = require('bcrypt')
 var crypto = require('crypto'); 
 const keys = require('./keys')
-//const User = require('../models/user-model')
-const Sequelize = require('sequelize')
 const User = require('../models/db').User
-//const User_facebook = require('../models/db').User_facebook
-
 function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
@@ -28,10 +23,8 @@ passport.deserializeUser((id,done)=>{
         done(null,user)
     }).catch((err)=>{
         done(err)
-    })
-    
+    })    
 })
-
 passport.use(
     new GoogleStrategy({
         callbackURL:"/auth/google/redirect",
@@ -45,13 +38,8 @@ passport.use(
         .then((currentUser)=>{
             if(!isEmpty(currentUser)){
                 //already user exist
-               // let user  = JSON.stringify(currentUser);
                 console.log('user is',currentUser)
-                
-               // console.log(user)
-               // console.log(JSON.stringify(currentUser))
                 console.log(currentUser[0].id)
-                
                 done(null,currentUser)
             }else{
                 User.create({
@@ -64,7 +52,6 @@ passport.use(
                     console.log('new User Created',newUser)
                     var user = [newUser.dataValues];
                     console.log(user)
-                    //console.log(newUser[0].id)
                     done(null,user)
                 }).catch((err)=>{
                     console.log(err)
@@ -93,7 +80,6 @@ passport.use(new FacebookStrategy({
                  console.log('user is',currentUser)
                  console.log(JSON.stringify(currentUser))
                  console.log(currentUser[0].id)
-                
                  done(null,currentUser)
              }else{
                  User.create({
@@ -106,7 +92,6 @@ passport.use(new FacebookStrategy({
                      console.log('new User Created',newUser)
                      var user = [newUser.dataValues];
                      console.log(user)
-                     //console.log(newUser[0].id)
                        done(null,user)
                   }).catch((err)=>{
                      console.log(err)
@@ -127,34 +112,26 @@ passport.use('login', new LocalStrategy({
         var users =[user.dataValues];
         console.log(users)
         if(users[0].authenticationType=='local'&&users[0].valid=='0'){
-            return done(null,false,{message:"validate email"})
+            return done(null,false,{message:"validate email"})//The email is not validate till not
         }
         if(users[0].authenticationType == 'Google'){
-            return done(null,false,{message:"Login using google"})
+            return done(null,false,{message:"Login using google"})//The user exist with google
         }else if(users[0].authenticationType == 'Facebook'){
-            return     done(null,false,{message:"Login using Faceboo"})}
+            return     done(null,false,{message:"Login using Facebook"})}//The user exist with facebook
        salti=user.salt
        hash=user.password  
        hash_created = crypto.pbkdf2Sync(password,salti, 1000, 64,`sha512`).toString(`hex`); 
-      
-    
        if(hash_created==hash){
-            console.log("Correct Password")
+            console.log("Correct Password")//The password is correct
             console.log(email +" Autheticated")
             done(null,users)
        }
        if(hash_created!=hash){
         err="Wrong Password"
-        return done(null,false,{message:"Wrong Password"})
+        return done(null,false,{message:"Wrong Password"})//The password entered is wrong
        }
        }).catch((err)=>{
        //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
        return done(null,false,{message:"User Not exist"})
-      })
-      
-      
-     
-      
-    
-    
+      })    
 }));

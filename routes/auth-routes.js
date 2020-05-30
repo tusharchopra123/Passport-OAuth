@@ -1,8 +1,7 @@
 const route = require('express').Router();
 var crypto = require('crypto'); 
-
- const flash = require('connect-flash')
- route.use(flash())
+const flash = require('connect-flash')
+route.use(flash())
 const passport = require('passport')
 const path = require('path')
 const User = require('../models/db').User;
@@ -10,7 +9,6 @@ const User = require('../models/db').User;
 route.get('/login',(req,res)=>{
     res.render('login',{user:req.user})
 })
-
 //auth logout
 route.get('/logout',(req,res)=>{
     //handle with passport
@@ -30,7 +28,6 @@ route.get('/facebook/redirect',passport.authenticate('facebook',{failureRedirect
 route.get('/signup',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/sign.html'),{user:req.user})
 })
-
 function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
@@ -43,7 +40,6 @@ route.post('/signup',passport.authenticate('signup',{
     failureRedirect: '/auth/signup',
     failureFlash:true
 }))
-
 route.get('/local',(req,res)=>{
     //console.log(req.flash('loginMessage'));
     //console.log(req.flash('error'));
@@ -60,32 +56,12 @@ route.get('/successDirect',(req,res)=>{
     failureRedirect: '/auth/failureDirect',
     failureFlash: true
  }));
-// passport.authenticate('local',{
-//     successRedirect: '/profile',
-//     failureRedirect: '/auth/local',
-// })   
-//console.log(req.body.email)
-//    console.log(req.body.fullname)
-//    console.log(req.body.password)
-//    console.log(req.body.username)
-//    User.findAll({where:{emailId:req.body.email}})
-//         .then((currentUser)=>{
-//             if(!isEmpty(currentUser)){
-                
-//             }else{
-
-//             }
-//         })
-
-
 route.get('/login.css',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.css'))
 })
 //calback route for google to redirect
 route.get('/google/redirect',passport.authenticate('google'),(req,res)=>{
-   
     //res.send( req.user)
-
     res.redirect('/profile/')
 })
 exports = module.exports = {
