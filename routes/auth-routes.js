@@ -43,14 +43,16 @@ route.post('/signup',passport.authenticate('signup',{
     failureRedirect: '/auth/signup',
     failureFlash:true
 }))
+
 route.get('/local',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'),{user:req.user})
 })
 
  route.post('/local',passport.authenticate('login',{
-    successRedirect: '/profile',
-    failureRedirect: '/login',
- }))
+    successRedirect: '/successRedirect',
+    failureRedirect: '/faliureRedirect',
+    failureFlash: true
+ }));
 // passport.authenticate('local',{
 //     successRedirect: '/profile',
 //     failureRedirect: '/auth/local',

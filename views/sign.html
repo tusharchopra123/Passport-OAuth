@@ -123,6 +123,10 @@
               password:this.password,
               username:this.username,
               }, function (data) {
+                if(data==true){
+                  console.log("Hi")
+                  window.location.href('http://localhost:7760/profile')
+                }
               
             })
               }

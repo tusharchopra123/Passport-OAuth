@@ -9,6 +9,12 @@ const keys = require('../config/keys')
 route.get('/signup',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/sign.html'))
 })
+route.get('/successRedirect',(req,res)=>{
+    res.status(200).send('true');
+})
+route.get('/faliureRedirect',(req,res)=>{
+    res.status(200).send('true');
+})
 route.get('/login',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'))
 })
@@ -32,12 +38,7 @@ route.get('/activate',(req,res)=>{
     res.redirect('/login');
 })
 
-route.post('/login',(req,res)=>{
-    var salt = crypto.randomBytes(16).toString('hex');
-    var hash_password = crypto.pbkdf2Sync(req.body.password,salt, 1000, 64,`sha512`).toString(`hex`);
-    console.log(req.body.email)
 
-})
 mailing_id='';
 hash=''
 route.post('/signup',(req,res)=>{
