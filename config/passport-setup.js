@@ -1,6 +1,8 @@
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20')
 const FacebookStrategy = require('passport-facebook')
+const LocalStrategy = require('passport-local').Strategy
+const bCrypt = require('bcrypt')
 const keys = require('./keys')
 //const User = require('../models/user-model')
 const Sequelize = require('sequelize')
@@ -22,6 +24,8 @@ passport.deserializeUser((id,done)=>{
     User.findAll({where: {id:id}})
     .then((user)=>{
         done(null,user)
+    }).catch((err)=>{
+        done(err)
     })
     
 })
@@ -48,10 +52,10 @@ passport.use(
             }else{
                 User.create({
                     userId:profile.id,
-                    username:profile.displayName,
+                    fullname:profile.displayName,
                     thumbnail:profile._json.picture,
                     emailId:profile._json.email,
-                    authenticationType:'Google'
+                    authenticationType:'Google',
                 }).then((newUser)=>{
                     console.log('new User Created',newUser)
                     var user = [newUser.dataValues];
@@ -63,18 +67,6 @@ passport.use(
                   })    
             }
         })
-        
-        // new User({
-        //     username: profile.displayName,
-        //     googleId: profile.id
-        // }).save()
-        // .then((newUser)=>{
-        //     console.log('new User Created'+newUser)
-        // })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
-        //passport callback function
     })
 )
 passport.use(new FacebookStrategy({
@@ -102,7 +94,7 @@ passport.use(new FacebookStrategy({
              }else{
                  User.create({
                      userId:profile.id,
-                     username:profile.displayName,
+                     fullname:profile.displayName,
                      thumbnail:profile._json.picture.data.url,
                      emailId:profile._json.email,
                      authenticationType:'Facebook'
@@ -119,3 +111,62 @@ passport.use(new FacebookStrategy({
          })
   }
 ));
+
+passport.use('signup',
+    new LocalStrategy({
+        usernameField:'email',
+        passwordField:'password',
+        passReqToCallback: true
+        //options for google strategy
+    },(req,username,password,done)=>{
+    //     console.log("passport callback function fired ")
+        console.log("here in passport",req.body.fullname)
+        console.log("here in passport",password)
+        console.log("here in passport",username)
+       // console.log("here in passport",fullname)
+     User.findAll({where: {emailId:req.body.email,authenticationType:'Local'}})
+         .then((currentUser)=>{
+             if(!isEmpty(currentUser)){
+                 //already user exist
+                 let user  = JSON.stringify(currentUser);
+                 console.log('user is',currentUser)
+                // console.log(JSON.stringify(currentUser))
+                 console.log(currentUser[0].id)
+                
+                 done(null,currentUser)
+             }else{
+                 User.create({
+                       username:req.body.username,
+                       thumbnail:'https://www.yourfirstpatient.com/assets/default-user-avatar-thumbnail@2x-ad6390912469759cda3106088905fa5bfbadc41532fbaa28237209b1aa976fc9.png',
+                       emailId:req.body.email,
+                       authenticationType:'Local',
+                       password:req.body.password,
+                       fullname:req.body.fullname
+                     }).then((newUser)=>{
+                       console.log('new User Created',newUser)
+                       var user = [newUser.dataValues];
+                       console.log(user)
+                       //console.log(newUser[0].id)
+                       done(null,user)
+                    }).catch((err)=>{
+                        console.log(err)
+                  })    
+            }
+        })
+     })
+ )
+passport.use('login', new LocalStrategy({
+    passReqToCallBack : true
+  },(email, password, done)=> { 
+      console.log(email)
+      User.findAll({where:{emailId  : email}}) 
+        .then((user)=>{
+            console.log(user)
+             done(null,user)               
+        }).catch((err)=>{
+            console.log(err)
+            return done(err)
+        })
+    
+    
+}));

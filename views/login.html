@@ -39,15 +39,15 @@
 
               <div class="col-sm-6 bord">
             <div class="card-body">
-            <form>
+            <form method="POST" action="/auth/local">
             <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input type="email" name = "username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 <a href="#" style="float: right;" class="card-link">Forget Password ?</a><br>
             </div>
             <div class="form-check">
@@ -55,7 +55,7 @@
                 <label class="form-check-label" for="exampleCheck1">Remember Me</label>
             </div>
             
-            <button type="button" class="btn">Log IN</button>
+            <button type="submit" class="btn">Log IN</button>
             <div>
             </form>
           </div>

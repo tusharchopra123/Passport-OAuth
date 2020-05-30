@@ -15,17 +15,28 @@ const db = new Sequelize(keys.mysql.DATABASE,keys.mysql.USER ,keys.mysql.PASSWOR
 const User = db.define('User',{
     userId:{
         type: Sequelize.STRING,
+        allowNULL:true
     },
     username: {
         type:Sequelize.STRING,
+        allowNULL:true
     },
     thumbnail: {
         type: Sequelize.STRING,
+        allowNULL:true
     },emailId:{
-        type:Sequelize.STRING
+        type:Sequelize.STRING,
+        allowNULL:false
     }
     ,authenticationType:{
         type:Sequelize.STRING
+    },
+    password:{
+        type:Sequelize.STRING,
+        allowNULL:true
+    },fullname:{
+        type:Sequelize.STRING,
+        allowNULL:false
     }
 })
 //  const User_facebook = db.define('User_facebook',{
