@@ -20,19 +20,21 @@
         <div class="col-2 col-sm-3"></div>    
         <div class="col-sm-6" ><br>
             <h1 class="centre head">LOGIN</h1>
-            <a href="#" class="centre"> New User ? Sign Up </a>
+            <a href="/signup" class="centre"> New User ? Sign Up </a>
             <br>
             <div class="card row">
               <div class="col-sm-6 parent">
                 <div class="child">
-                  <br><br><br><br>
-                <button class="log facebook">
+                  <br><br><br><br><br v-if="error">
+                  <a href="/auth/facebook">
+                <button @click="facebook()" class="log facebook">
                     Continue with Facebook
-                </button>
+                </button></a>
                 <br><br>
-                <button class="log google">
+                <a href="/auth/google">
+                <button @click="google()" class="log google">
                   Continue with Google&nbsp&nbsp&nbsp&nbsp
-                </button>
+                </button></a>
                 </div>
               </div>
 
@@ -54,8 +56,11 @@
                 <div error-tip="Enter 8 character or long password" v-bind:if='validpassword'>
                   <input type="password" class="form-control" v-model="password" id="exampleInputPassword1" placeholder="Password">
               </div></div>
-                <a href="#" style="float: right;" class="card-link">Forget Password ?</a><br>
+                <a href="/forgotpassword" style="float: right;" class="card-link">Forgot Password ?</a><br>
             </div>
+            <div v-if="error" class="error"> 
+              {{message}} !
+            </div><br>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Remember Me</label>
@@ -81,6 +86,13 @@
         link:'',
         validemail:1,
         validpassword:1,
+        wrongpassword:0,
+        activateduser:0,
+        alreadygoogle:0,
+        alreadyfacebook:0,
+        usernotexist:0,
+        error:0,
+        message:'',
       },created:function(){
                this.load();
       },
@@ -115,10 +127,22 @@
               }, function (data) {
                 console.log(data)
                 if(data==='true'){
-                  console.log("Hi")
                   window.location.href='http://localhost:7760/profile';
-                }else{
-                  window.alert("Entered Password Wrong")
+                }else if(data[0]==='wp'){
+                  acc.message=" Wrong Password";
+                  acc.error=1;
+                }else if(data[0]==='ve'){
+                  acc.message=" Activate your account from the link sent to you mail";
+                  acc.error=1;
+                }else if(data[0]==='ue'){
+                  acc.message=" User not exists. Sign UP with us";
+                  acc.error=1;
+                }else if(data[0]==='ag'){
+                  acc.message=" You logged in previously using Google";
+                  acc.error=1;
+                }else if(data[0]==='af'){
+                  acc.message=" You logged in previously using Facebook";
+                  acc.error=1;
                 }
               })
             }

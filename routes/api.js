@@ -12,13 +12,46 @@ route.get('/signup',(req,res)=>{
 route.get('/login',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'))
 })
+route.post('/forgotpassword',(req,res)=>{
+    var email=req.body.email;
+    User.findOne({where:{emailId :email,authenticationType:'local'}})
+    .then((user)=>{
+        sendmail(user.emailId,user.password,1);
+        return res.send({data:'true'})
+      }).catch((err)=>{
+        return res.send({data:'No user'})
+      })
+})
 route.get('/signup/css',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.css'))
+})
+route.get('/forgotpassword',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/forgotpass.html'))
+})
+route.get('/forgotpassword/css',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/forgotpass.css'))
 })
 route.get('/activate',(req,res)=>{
     console.log(req.query.mail)
     console.log(req.query.id)
-    User.update({   name: req.body.name,
+    User.update({   
+        valid:true
+    },{where:{emailId:req.query.mail,password:req.query.id}})
+    .then((user) => {
+    })
+    .catch((err) => {
+        console.log(err)
+        res.status(500).send({
+            error: "Could not activate the user"
+        })
+    })
+    res.redirect('/login');
+})
+route.get('/forgot',(req,res)=>{
+    console.log(req.query.mail)
+    console.log(req.query.id)
+    console.log(req.query.tm)
+    User.update({   
         valid:true
     },{where:{emailId:req.query.mail,password:req.query.id}})
     .then((user) => {
@@ -49,14 +82,19 @@ route.post('/signup',(req,res)=>{
         password:hash_password,
         valid:false, 
       }).then((user)=>{
-          sendmail(mailing_id,hash);
+          sendmail(mailing_id,hash,0);
         return res.redirect('/login')
       }).catch((err)=>{
         console.log(err)
         return res.redirect('/login')
       })
 })
-function sendmail(tomailid,hash,id){
+
+function sendmail(tomailid,hash,fp){
+    var d = new Date();
+    var h = d.getHours();
+    var m=d.getMinutes();
+    var tm=h+''+m;
     let mailTransporter = nodemailer.createTransport({ 
         service: 'gmail', 
         auth: { 
@@ -66,16 +104,25 @@ function sendmail(tomailid,hash,id){
     }); 
     //shankygupta79@gmail.com
     //tusharchopra123@gmail.com
-    let mailDetails = { 
+    let mailDetails={}
+    if(fp==1){
+        mailDetails = { 
+            from: keys.gmail.mail,
+            to: tomailid, 
+            subject: 'Reset Your Password', 
+            text: 'Reset your password by clicking on the link (link is valid upto five minutes only) '+'http://localhost:7760/forgot?id='+hash+'&tm='+tm+'&mail='+tomailid,
+        };
+    }else if(fp==0){
+    mailDetails = { 
         from: keys.gmail.mail,
         to: tomailid, 
         subject: 'Activate Your Account', 
         text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid,
-    }; 
+    }; }
     // https://myaccount.google.com/lesssecureapps
     mailTransporter.sendMail(mailDetails, function(err, data) { 
         if(err) { 
-            console.log('Error Occurs mailing to'+tomailid); 
+            console.log('Error Occurs mailing to'+tomailid+err); 
         } else { 
             console.log('Email sent successfully to'+tomailid); 
         } 

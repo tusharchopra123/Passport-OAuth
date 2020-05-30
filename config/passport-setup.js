@@ -14,7 +14,6 @@ function isEmpty(obj) {
 }
 passport.serializeUser((user,done)=>{
     console.log('here for serliase',user[0].id)
-    console.log(user)
     done(null,user[0].id)
 })
 passport.deserializeUser((id,done)=>{
@@ -112,26 +111,27 @@ passport.use('login', new LocalStrategy({
         var users =[user.dataValues];
         console.log(users)
         if(users[0].authenticationType=='local'&&users[0].valid=='0'){
-            return done(null,false,{message:"validate email"})//The email is not validate till not
+            return done(null,false,{message:"ve"})//The email is not validate till not
         }
         if(users[0].authenticationType == 'Google'){
-            return done(null,false,{message:"Login using google"})//The user exist with google
+            return done(null,false,{message:"ag"})//The user exist with google
         }else if(users[0].authenticationType == 'Facebook'){
-            return     done(null,false,{message:"Login using Facebook"})}//The user exist with facebook
+            return     done(null,false,{message:"af"})}//The user exist with facebook
        salti=user.salt
        hash=user.password  
        hash_created = crypto.pbkdf2Sync(password,salti, 1000, 64,`sha512`).toString(`hex`); 
        if(hash_created==hash){
             console.log("Correct Password")//The password is correct
             console.log(email +" Autheticated")
-            done(null,users)
+            
+            done(null,[user])
        }
        if(hash_created!=hash){
         err="Wrong Password"
-        return done(null,false,{message:"Wrong Password"})//The password entered is wrong
+        return done(null,false,{message:"wp"})//The password entered is wrong
        }
        }).catch((err)=>{
        //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
-       return done(null,false,{message:"User Not exist"})
+       return done(null,false,{message:"ue"})//User Not exist
       })    
 }));
