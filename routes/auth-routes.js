@@ -45,7 +45,7 @@ route.get('/local',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'),{message:req.flash('error')})
 })
 route.get('/failureDirect',(req,res)=>{
-    console.log(req.flash('error'));
+    res.status(200).send(req.flash('error'));
 })
 route.get('/successDirect',(req,res)=>{
     res.status(200).send('true');

@@ -206,3 +206,10 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 [error-tip][if='0']:after {
 	display:block;
 } 
+.error{
+    background-image:linear-gradient(10deg, #d50000 0%, #fc362f 74%);
+    border-left: 5px solid #8d0e0e;
+    color: white;
+    padding:7px;
+    font-size: 12px;
+}
