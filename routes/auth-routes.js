@@ -47,12 +47,12 @@ route.post('/signup',passport.authenticate('signup',{
 route.get('/local',(req,res)=>{
     console.log(req.flash('loginMessage'));
     console.log(req.flash('error'));
-    res.sendFile(path.join(__dirname,'../views/login.html'),{user:req.user})
+    res.sendFile(path.join(__dirname,'../views/login.html'),{message:req.flash('error')})
 })
 
  route.post('/local',passport.authenticate('login',{
     successRedirect: '/successRedirect',
-    failureRedirect: '/faliureRedirect',
+    failureRedirect: '/auth/local',
     failureFlash: true
  }));
 // passport.authenticate('local',{

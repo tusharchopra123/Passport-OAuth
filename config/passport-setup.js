@@ -122,16 +122,21 @@ passport.use('login', new LocalStrategy({
     var salti='';
     var hash='';
     var hash_created='';
-      User.findOne({where:{emailId  :email}}) 
+    User.findOne({where:{emailId  :email}}) 
       .then((user)=>{
         var users =[user.dataValues];
+        if(users[0].authenticationType == 'Google'){
+            return done(null,false,{message:"Login using google"})
+        }else if(users[0].authenticationType == 'Facebook'){
+            return     done(null,false,{message:"Login using Faceboo"})}
        salti=user.salt
        hash=user.password  
        hash_created = crypto.pbkdf2Sync(password,salti, 1000, 64,`sha512`).toString(`hex`); 
+      
+    
        if(hash_created==hash){
             console.log("Correct Password")
             console.log(email +" Autheticated")
-            
             done(null,users)
        }
        if(hash_created!=hash){
@@ -140,7 +145,7 @@ passport.use('login', new LocalStrategy({
        }
        }).catch((err)=>{
        //IF USER NOT FOUND OR CHECK IF USER IS FROM GOOGLE
-       return done(err)
+       return done(null,false,{message:"User Not exist"})
       })
       
       
