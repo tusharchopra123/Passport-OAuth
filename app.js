@@ -7,7 +7,7 @@ const keys = require('./config/keys')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 const profileroutes = require('./routes/profile-routes').route
-
+const server_port = process.env.PORT || 7760
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 //set view engine
@@ -39,6 +39,6 @@ app.get('/success',(req,res)=>{
 
 
 //listen to port
-app.listen(7760,()=>{
+app.listen(server_port,()=>{
     console.log("app now listening onn request on port 7760")
 })

@@ -9,7 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue"></script>
   <!-- Latest compiled and minified bootstap CSS -->
-<link rel="stylesheet" href="http://localhost:7760/profile/css" >
+<link rel="stylesheet" href="/profile/css" >
 
 </head>
 
@@ -31,7 +31,7 @@
                 <p class="email">Email ID</p>  {{data.emailId}}<br>
                 <p class="name">FullName</p>  {{data.fullname}}<br>
                 <br>
-                <a href="http://localhost:7760/auth/logout">
+                <a href="https://login-portals.herokuapp.com/auth/logout">
                 <button type="button" @click="submit()" class="btn" id="btn">Logout</button>
                 </a>
               </div>
@@ -76,7 +76,7 @@
       },
       methods:{
         load:function(){
-          axios.get('http://localhost:7760/profile/api')
+          axios.get('https://login-portals.herokuapp.com/profile/api')
           .then(function(Response){
             console.log(Response)
             acc.data=Response
