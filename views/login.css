@@ -220,7 +220,6 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 	}
 	.bord{
 		border:none;
-		
 	}
 	.card{
 		border-style: groove;
@@ -232,7 +231,11 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 	}
 	.child{
 		margin-top: 10%;
-		margin-bottom: 10%;
+		padding-bottom: 8%;
+		margin-bottom: 8%;
+		border-bottom: 1px solid grey;
+		width: 95%;
+		
 	}
 	.child >br{
 		display: none;
