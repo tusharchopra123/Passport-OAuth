@@ -65,7 +65,13 @@ route.get('/forgot',(req,res)=>{
     res.redirect('/login');
 })
 
-
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
 mailing_id='';
 hash=''
 route.post('/signup',(req,res)=>{
@@ -73,21 +79,40 @@ route.post('/signup',(req,res)=>{
     var hash_password = crypto.pbkdf2Sync(req.body.password,salt_1, 1000, 64,`sha512`).toString(`hex`);
     mailing_id=req.body.email;
     hash=hash_password;
-    User.create({
-        username:req.body.username,
-        emailId:req.body.email,
-        fullname:req.body.name,
-        authenticationType:'local',
-        salt:salt_1,
-        password:hash_password,
-        valid:false, 
-      }).then((user)=>{
-          sendmail(mailing_id,hash,0);
-        return res.redirect('/login')
-      }).catch((err)=>{
-        console.log(err)
-        return res.redirect('/login')
-      })
+    User.findOne({where:{emailId:req.body.email}})
+    .then((user)=>{
+        if(!isEmpty(user)){
+            var users = [user.dataValues];
+            if(users[0].authenticationType=='Google'){
+                return res.status(200).send({data:'ug'})
+            }else if(users[0].authenticationType=='Facebook'){
+               return  res.status(200).send({data:'uf'})
+            }else{
+               return  res.status(200).send({data:'ae'})
+            }
+        }else{
+            User.create({
+                username:req.body.username,
+                emailId:req.body.email,
+                fullname:req.body.name,
+                authenticationType:'local',
+                salt:salt_1,
+                password:hash_password,
+                valid:false, 
+              }).then((user)=>{
+                  sendmail(mailing_id,hash,0);
+                return res.send({data:'ms'})
+              }).catch((err)=>{
+                console.log(err)
+                return res.send({data:'error'})
+              })
+
+        }
+
+
+
+    })
+   
 })
 
 function sendmail(tomailid,hash,fp){

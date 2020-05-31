@@ -28,13 +28,7 @@ route.get('/facebook/redirect',passport.authenticate('facebook',{failureRedirect
 route.get('/signup',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/sign.html'),{user:req.user})
 })
-function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
+
 route.post('/signup',passport.authenticate('signup',{
     successRedirect: '/profile',
     failureRedirect: '/auth/signup',

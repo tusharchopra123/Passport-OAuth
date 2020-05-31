@@ -65,6 +65,9 @@
               </div>
             </div>
             
+            <div v-if="error" class="error"> 
+              {{message}} !
+            </div><br>
             <div><button type="button" @click="submit()" class="btn">Sign Up</button></div>
             
             
@@ -90,6 +93,8 @@
         password:'',
         validemail:1,
         validpassword:1,
+        error:0,
+        message:'',
       },created:function(){
                this.load();
       },
@@ -125,11 +130,24 @@
               password:this.password,
               username:this.username,
               }, function (data) {
-                if(data==true){
-                  console.log("Hi")
-                  window.location.href('http://localhost:7760/profile')
-                }
               
+                  
+                  if(data.data=="ms"){
+                    acc.message="An activtion Mail Has Been Sent to you Mail";
+                    acc.error=1;
+                  }else if(data.data=="ae"){
+                    acc.message="Email Already Registered, Login with your email Id";
+                    acc.error=1;
+                  }else if(data.data=="uf"){
+                    acc.message="Email already Registered with us, Continue with Facebook";
+                    acc.error=1;
+                  }else if(data.data=="ug"){
+                    acc.message="Email already Registered with Google,Please sign in with Google";
+                    acc.error=1;
+                  }else{
+                    acc.message="Pls Try Again";
+                    acc.error=1;
+                  }
             })
               }
             }
