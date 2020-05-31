@@ -50,7 +50,8 @@ route.get('/forgotpassword/css',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/forgotpass.css'))
 })
 route.get('/activate',(req,res)=>{
-    
+    var d = new Date();
+    var tmnew=d.getTime();
     User.update({   
         valid:true
     },{where:{emailId:req.query.mail,password:req.query.id}})
@@ -77,32 +78,6 @@ route.get('/forgot',(req,res)=>{
     
     
 })
-route.post('/valid',(req,res)=>{
-    var email = req.body.email
-    res.status(300).send({msg:"successfully Triggered"})
-    setTimeout(()=>{
-    User.findOne({where:{emailId:email}})
-        .then((user)=>{
-            if(user.dataValues.valid=='0'){
-                User.destroy({
-                    where:{
-                        emailId:req.body.email
-                    }
-                }).then((data)=>{
-                    if(data){
-                       console.log("User Successfully Deleted")
-                    }
-                })
-            }else{
-                console.log("User Successfully Validated")
-            }
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    },1000*60*10)
-})
-
 function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))

@@ -96,12 +96,12 @@ input[type="email"]:hover{
     font-weight: bold;
     width: 100px;
     border-radius: 20px;
-    outline:none;
+    outline-style:none !important;
 }
 .btn:hover{
     background-color: #f3f058;
     color: white;
     font-weight: bold;
     width: 100px;
-    outline:none;
+    outline-style:none !important;
 }
