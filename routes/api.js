@@ -3,7 +3,7 @@ var crypto = require('crypto');
 const Sequelize = require('sequelize')
 var path=require('path')
 const User = require('../models/db').User
-const nodemailer = require('Nodemailer'); 
+const nodemailer = require('nodemailer'); 
 const keys = require('../config/keys') 
 
 route.get('/signup',(req,res)=>{
