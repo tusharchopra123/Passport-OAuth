@@ -137,13 +137,6 @@
                     setTimeout(() => {
                       window.location.href = "/auth/local"
                     }, 4000);
-                    
-                      $.post('/valid',{
-                        email:data.email
-                      },(obj)=>{
-                        console.log(obj)
-                      })
-                  
                     //window.alert("You will be automatically redierected to the login page in 3 sec")
                     
                     acc.error=1;
