@@ -154,14 +154,14 @@ function sendmail(tomailid,hash,fp){
             from: keys.gmail.mail,
             to: tomailid, 
             subject: 'Reset Your Password', 
-            text: 'Reset your password by clicking on the link (link is valid upto five minutes only) '+'http://localhost:7760/forgot?id='+hash+'&tm='+tm+'&mail='+tomailid,
+            text: 'Reset your password by clicking on the link (link is valid upto five minutes only) '+'https://login-portals.herokuapp.com/forgot?id='+hash+'&tm='+tm+'&mail='+tomailid,
         };
     }else if(fp==0){
     mailDetails = { 
         from: keys.gmail.mail,
         to: tomailid, 
         subject: 'Activate Your Account', 
-        text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid+'&tm='+tm+' .'+ 'This Link will expire in 10 minutes',
+        text: 'Verify your account by clicking on the link '+'https://login-portals.herokuapp.com/activate?id='+hash+'&mail='+tomailid+'&tm='+tm+' .'+ 'This Link will expire in 10 minutes',
     }; }
     // https://myaccount.google.com/lesssecureapps
     mailTransporter.sendMail(mailDetails, function(err, data) { 
