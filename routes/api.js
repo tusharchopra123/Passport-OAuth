@@ -113,6 +113,7 @@ route.post('/signup',(req,res)=>{
             User.create({
                 username:req.body.username,
                 emailId:req.body.email,
+                thumbnail:'https://ceas.stanford.edu/sites/g/files/sbiybj6161/f/styles/large-square/public/no_image.jpg?itok=F4OPc4ed',
                 fullname:req.body.name,
                 authenticationType:'local',
                 salt:salt_1,

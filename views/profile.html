@@ -20,20 +20,49 @@
           <div class="col-sm-2"></div>
           <div class="col-sm-8 card">
             <div class="row">
-              <div class="col-sm-6"> <b>Your Photo</b><br>
-                {{data.thumbnail}}
-                <img src="https://ceas.stanford.edu/sites/g/files/sbiybj6161/f/styles/large-square/public/no_image.jpg" alt="Girl in a jacket" width="250" height="300">
+              <div class="col-sm-6 imagecon"> <b>Your Photo</b><br>
+               
+                <img v-bind:src="data.thumbnail" alt="Your Photo" width="250" height="300"><br>
+                <button type="button" @click="submit()" id="myBtn" class="btn">Change Image</button>
               </div>
               <div class="col-sm-6 data">
                 
                 <b>Email ID</b> - {{data.emailId}}<br>
-                <b>FullName</b> - {{data.fullname}}
+                <b>FullName</b> - {{data.fullname}}<br>
+                <br>
+                <a href="http://localhost:7760/auth/logout">
+                <button type="button" @click="submit()" class="btn">Logout</button>
+                </a>
               </div>
             </div>
 
           </div>
           <div class="col-sm-2"></div>
         </div>
+
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            
+            <span class="close">&times;</span><br> 
+            
+            <form action="/fileupload" enctype="multipart/form-data" method="POST">
+              
+              <input type="emailID" v-show="false" name="mail" v-bind:value="data.emailId" readonly/> 
+            <div class="uploadOuter">
+              <label for="uploadFile" class="btn">Upload Image</label>
+              <strong>OR</strong>
+            <span class="dragBox" >
+              Darg and Drop image here
+            <input type="file" name="image" onChange="dragNdrop(event)"  ondragover="drag()" ondrop="drop()" id="uploadFile"  />
+            </span>
+            </div>
+            <div id="preview"></div>
+            <button type="submit" value="Upload" class="btn centre">Upload</button><br>
+            
+            </div>
+          </form>
+      </div>
+
     </div>
 <script>
   const acc = new Vue({
@@ -55,10 +84,44 @@
                 acc.data=[]
             })
                    
-            },
+            },submit(){
+
+            }
                   
       }
-  })  
+  }) 
+  var modal = document.getElementById("myModal");
+      var btn = document.getElementById("myBtn");
+      var span = document.getElementsByClassName("close")[0];
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      } 
+      function dragNdrop(event) {
+        console.log(event.target.files)
+        var fileName = URL.createObjectURL(event.target.files[0]);
+        var preview = document.getElementById("preview");
+        var previewImg = document.createElement("img");
+        previewImg.setAttribute("src", fileName);
+        preview.innerHTML = "";
+        preview.appendChild(previewImg);
+
+      }
+      function drag() {
+        document.getElementById('uploadFile').parentNode.className = 'draging dragBox';
+      }
+      function drop() {
+        document.getElementById('uploadFile').parentNode.className = 'dragBox';
+      }
+
       
  
 </script>

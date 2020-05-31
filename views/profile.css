@@ -1,6 +1,7 @@
 body{
     background-color: #96c8fb;
 background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
+ overflow-x: hidden;
 }
 .card{
     border-style: groove;
@@ -9,9 +10,15 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
     padding: 20px;
     
 }
-.centre{
+.centre:not(.close){
     display: flex;
-    justify-content: center;
+	justify-content: center;
+	left: 50%;
+  	position: absolute;
+  	left: 50%;
+  	-ms-transform: translateX(-50%) translateY(0%);
+  	-webkit-transform: translate(-50%,0%);
+  	transform: translate(-50%,0%);
 }
 .head{
     font-family: 'Trocchi', serif; 
@@ -21,17 +28,34 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
     margin: 0; 
 }
 .btn{
-    background-color: #42a1f5;
+    background-color: #d30606;
     color: white;
     font-weight: bold;
-    width: 100px;
+    width: 150px;
     border-radius: 20px;
     outline-style:none ;
 }
 .btn:active,
 .btn:focus,
 .btn:hover{
-    background-color: #6bb4f3;
+    background-color: #c7270b;
+    color: white;
+    font-weight: bold;
+    width: 150px;
+    outline-style:none !important;
+}
+.btn2{
+    background-color: #079e2d;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    border-radius: 20px;
+    outline-style:none ;
+}
+.btn2:active,
+.btn2:focus,
+.btn2:hover{
+    background-color: #1c9411;
     color: white;
     font-weight: bold;
     width: 100px;
@@ -39,10 +63,88 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 }
 .data{
 	padding: 15px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
+	position: relative;
+	top: 20%;
+	left: 0%;
 	
 	overflow-x: auto;
 }
-
+.imagecon{
+	padding: 5px;
+	position: relative;
+	top:0%;
+	left: 10%;
+	
+	overflow-x: auto;
+}
+  .modal {
+	display: hidden;
+	position: fixed; 
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto; 
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4); 
+  }
+  
+  .modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%; 
+  }
+  .close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+  }
+  .uploadOuter {
+	text-align: center;
+	padding: 20px;
+	
+  }
+  .dragBox {
+	width: 250px;
+	height: 100px;
+	margin: 0 auto;
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+	line-height: 95px;
+	color: rgb(10, 8, 8);
+	border: 2px dashed rgb(14, 9, 9);
+	display: inline-block;
+	transition: transform 0.3s;
+	
+  }
+  input[type="file"] {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	top: 0;
+	left: 0;
+  }
+  .draging {
+	transform: scale(1.1);
+  }
+  #preview {
+	text-align: center;
+	
+  }
+  img {
+	max-width: 100%
+  }
+  

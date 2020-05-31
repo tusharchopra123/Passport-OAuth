@@ -25,10 +25,13 @@ app.use(passport.session())
 app.use('/auth',authroutes)
 app.use('/profile',profileroutes)
 
+var uploadRouter = require('./models/upload');
+app.use('/', uploadRouter);
+
 app.use('/',require('./routes/api').route)
 //creaet home route
 app.get('/',(req,res)=>{
-    res.render('home',{user:req.user}) 
+    res.redirect('/login')
 })
 app.get('/success',(req,res)=>{
     res.sendStatus(200);
