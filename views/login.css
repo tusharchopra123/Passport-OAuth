@@ -231,8 +231,8 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 	}
 	.child{
 		margin-top: 10%;
-		padding-bottom: 8%;
-		margin-bottom: 8%;
+		padding-bottom: 7%;
+		margin-bottom: 9%;
 		border-bottom: 1px solid grey;
 		width: 95%;
 		
@@ -242,6 +242,7 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 	}
 	.log{
 		font-size: 4.8vw;
+		margin-bottom: 4%;
 	}
 
 }
