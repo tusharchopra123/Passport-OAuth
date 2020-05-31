@@ -77,6 +77,31 @@ route.get('/forgot',(req,res)=>{
     
     
 })
+route.post('/valid',(req,res)=>{
+    var email = req.body.email
+    res.status(300).send({msg:"successfully Triggered"})
+    setTimeout(()=>{
+    User.findOne({where:{emailId:email}})
+        .then((user)=>{
+            if(user.dataValues.valid=='0'){
+                User.destroy({
+                    where:{
+                        emailId:req.body.email
+                    }
+                }).then((data)=>{
+                    if(data){
+                       console.log("User Successfully Deleted")
+                    }
+                })
+            }else{
+                console.log("User Successfully Validated")
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },1000*60*10)
+})
 
 function isEmpty(obj) {
     for(var key in obj) {
@@ -114,7 +139,8 @@ route.post('/signup',(req,res)=>{
                 valid:false, 
               }).then((user)=>{
                   sendmail(mailing_id,hash,0);
-                return res.send({data:'ms'})
+
+                return res.send({data:'ms',email:req.body.email})
               }).catch((err)=>{
                 console.log(err)
                 return res.send({data:'error'})
@@ -153,14 +179,14 @@ function sendmail(tomailid,hash,fp){
         from: keys.gmail.mail,
         to: tomailid, 
         subject: 'Activate Your Account', 
-        text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid,
+        text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid+' .'+ 'This Link will expire in 10 minutes',
     }; }
     // https://myaccount.google.com/lesssecureapps
     mailTransporter.sendMail(mailDetails, function(err, data) { 
         if(err) { 
-            console.log('Error Occurs mailing to'+tomailid+err); 
+            console.log('Error Occurs mailing to '+tomailid+err); 
         } else { 
-            console.log('Email sent successfully to'+tomailid); 
+            console.log('Email sent successfully to '+tomailid); 
         } 
     });
 }

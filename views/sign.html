@@ -41,27 +41,27 @@
 
               <div class="col-sm-6 bord">
             <div class="card-body">
-            <form method="post" action="/auth/signup">
+            <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Full Name</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="name" placeholder="Enter full name">
+                <input type="text" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="name" placeholder="Enter full name">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Username</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="username" placeholder="Enter username">
+              <input type="text" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="username" placeholder="Enter username">
            </div>
             <div class="form-group">
                     
                     <label for="exampleInputEmail1">Email address</label>
                     <div error-tip="Enter Valid Email" v-bind:if='validemail'>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email" placeholder="Enter email">
+                    <input type="email"required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email" placeholder="Enter email">
                     </div>
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <div error-tip="Enter 8 character or long password" v-bind:if='validpassword'>
-                <input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
+                <input type="password"required class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
               </div>
             </div>
             
@@ -131,9 +131,21 @@
               username:this.username,
               }, function (data) {
               
-                  
+                console.log(data.email)
                   if(data.data=="ms"){
-                    acc.message="An activtion Mail Has Been Sent to you Mail";
+                    acc.message="An activtion Mail Has Been Sent to your Mail and you will be redirected automatically to the login page";
+                    setTimeout(() => {
+                      window.location.href = "/auth/local"
+                    }, 4000);
+                    
+                      $.post('/valid',{
+                        email:data.email
+                      },(obj)=>{
+                        console.log(obj)
+                      })
+                  
+                    //window.alert("You will be automatically redierected to the login page in 3 sec")
+                    
                     acc.error=1;
                   }else if(data.data=="ae"){
                     acc.message="Email Already Registered, Login with your email Id";
@@ -144,9 +156,11 @@
                   }else if(data.data=="ug"){
                     acc.message="Email already Registered with Google,Please sign in with Google";
                     acc.error=1;
-                  }else{
+                  }else if(data.data=="error"){
                     acc.message="Pls Try Again";
                     acc.error=1;
+                  }else{
+                    
                   }
             })
               }
