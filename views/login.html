@@ -129,19 +129,19 @@
                 if(data==='true'){
                   window.location.href='http://localhost:7760/profile';
                 }else if(data[0]==='wp'){
-                  acc.message=" Wrong Password";
+                  acc.message=" Incorrect Password";
                   acc.error=1;
                 }else if(data[0]==='ve'){
-                  acc.message=" Activate your account from the link sent to you mail";
+                  acc.message=" Activate your account from the link sent to your mail";
                   acc.error=1;
                 }else if(data[0]==='ue'){
-                  acc.message=" User not exists. Sign UP with us";
+                  acc.message=" User doesn't exist. Please Signup with us";
                   acc.error=1;
                 }else if(data[0]==='ag'){
-                  acc.message=" You logged in previously using Google";
+                  acc.message=" You have logged in previously using Google";
                   acc.error=1;
                 }else if(data[0]==='af'){
-                  acc.message=" You logged in previously using Facebook";
+                  acc.message=" You have logged in previously using Facebook";
                   acc.error=1;
                 }
               })
