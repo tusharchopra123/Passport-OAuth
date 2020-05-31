@@ -1,4 +1,5 @@
 const route = require('express').Router()
+var path=require('path')
 function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
@@ -15,9 +16,14 @@ const authCheck = (req,res,next)=>{
         next()
     }
 }
-route.get('/',(req,res)=>{
-    res.render('profile',{user:req.user[0]})
-    //res.status(200).send({ message: req.user[0].username });
+route.get('/api',authCheck,(req,res)=>{
+    res.status(200).send(req.user[0]);
+})
+route.get('/',authCheck,(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/profile.html'))
+})
+route.get('/css',authCheck,(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/profile.css'))
 })
 exports = module.exports = {
     route

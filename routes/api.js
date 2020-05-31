@@ -52,6 +52,9 @@ route.get('/forgotpassword/css',(req,res)=>{
 route.get('/activate',(req,res)=>{
     var d = new Date();
     var tmnew=d.getTime();
+    console.log(req.query.tm)
+    if(tmnew-req.query.tm<300000){
+        res.sendFile(path.join(__dirname,'../views/updatepass.html'))
     User.update({   
         valid:true
     },{where:{emailId:req.query.mail,password:req.query.id}})
@@ -63,6 +66,9 @@ route.get('/activate',(req,res)=>{
             error: "Could not activate the user"
         })
     })
+    }else{
+        res.send({message:"Activation Link Expired"})
+    }
     res.redirect('/login');
 })
 
@@ -154,7 +160,7 @@ function sendmail(tomailid,hash,fp){
         from: keys.gmail.mail,
         to: tomailid, 
         subject: 'Activate Your Account', 
-        text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid+' .'+ 'This Link will expire in 10 minutes',
+        text: 'Verify your account by clicking on the link '+'http://localhost:7760/activate?id='+hash+'&mail='+tomailid+'&tm='+tm+' .'+ 'This Link will expire in 10 minutes',
     }; }
     // https://myaccount.google.com/lesssecureapps
     mailTransporter.sendMail(mailDetails, function(err, data) { 
