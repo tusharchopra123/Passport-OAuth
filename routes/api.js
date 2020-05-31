@@ -22,6 +22,24 @@ route.post('/forgotpassword',(req,res)=>{
         return res.send({data:'No user'})
       })
 })
+route.post('/updatepassword',(req,res)=>{
+    var newsalt = crypto.randomBytes(16).toString('hex');
+    var hash = crypto.pbkdf2Sync(req.body.password,newsalt, 1000, 64,`sha512`).toString(`hex`);
+    
+    User.update({   
+        salt:newsalt,
+        password:hash
+    },{where:{emailId:req.body.mail}})
+    .then((user) => {
+        return res.send({data:'true'})
+    })
+    .catch((err) => {
+        console.log(err)
+        res.status(500).send({
+            error: "Could not activate the user"
+        })
+    })
+})
 route.get('/signup/css',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.css'))
 })
@@ -32,8 +50,7 @@ route.get('/forgotpassword/css',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/forgotpass.css'))
 })
 route.get('/activate',(req,res)=>{
-    console.log(req.query.mail)
-    console.log(req.query.id)
+    
     User.update({   
         valid:true
     },{where:{emailId:req.query.mail,password:req.query.id}})
@@ -47,22 +64,18 @@ route.get('/activate',(req,res)=>{
     })
     res.redirect('/login');
 })
+
 route.get('/forgot',(req,res)=>{
-    console.log(req.query.mail)
-    console.log(req.query.id)
-    console.log(req.query.tm)
-    User.update({   
-        valid:true
-    },{where:{emailId:req.query.mail,password:req.query.id}})
-    .then((user) => {
-    })
-    .catch((err) => {
-        console.log(err)
-        res.status(500).send({
-            error: "Could not activate the user"
-        })
-    })
-    res.redirect('/login');
+    var d = new Date();
+    var tmnew=d.getTime();
+    console.log(tmnew)
+    if(tmnew-req.query.tm<300000){
+        res.sendFile(path.join(__dirname,'../views/updatepass.html'))
+    }else{
+        res.send({message:"Timed Out"})
+    }
+    
+    
 })
 
 function isEmpty(obj) {
@@ -117,9 +130,7 @@ route.post('/signup',(req,res)=>{
 
 function sendmail(tomailid,hash,fp){
     var d = new Date();
-    var h = d.getHours();
-    var m=d.getMinutes();
-    var tm=h+''+m;
+    var tm = d.getTime();
     let mailTransporter = nodemailer.createTransport({ 
         service: 'gmail', 
         auth: { 
