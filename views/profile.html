@@ -2,6 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Profile Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
@@ -14,24 +15,24 @@
 
 <body>
  
-    <div id="Profile">
+    <div id="Profile" class="container-fluid">
       <br>
         <div class="row" v-if="data">
           <div class="col-sm-2"></div>
-          <div class="col-sm-8 card">
+          <div class="col-12 col-sm-8 card">
             <div class="row">
               <div class="col-sm-6 imagecon"> <b>Your Photo</b><br>
                
                 <img v-bind:src="data.thumbnail" alt="Your Photo" width="250" height="300"><br>
-                <button type="button" @click="submit()" id="myBtn" class="btn">Change Image</button>
+                <button type="button" @click="submit()" id="myBtn" class=" btn">Change Image</button>
               </div>
               <div class="col-sm-6 data">
                 
-                <b>Email ID</b> - {{data.emailId}}<br>
-                <b>FullName</b> - {{data.fullname}}<br>
+                <p class="email">Email ID</p>  {{data.emailId}}<br>
+                <p class="name">FullName</p>  {{data.fullname}}<br>
                 <br>
                 <a href="http://localhost:7760/auth/logout">
-                <button type="button" @click="submit()" class="btn">Logout</button>
+                <button type="button" @click="submit()" class="btn" id="btn">Logout</button>
                 </a>
               </div>
             </div>

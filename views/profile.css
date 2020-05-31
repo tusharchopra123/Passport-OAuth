@@ -145,6 +145,43 @@ background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
 	
   }
   img {
-	max-width: 100%
+	max-width: 100%;
+	border-radius:15%;
+	margin: 5% 0%
   }
-  
+
+  @media (min-width:260px) and (max-width:814px){
+
+	.container-fluid{
+		width: 90%;
+	}
+	img{
+		width: 90%;
+		height:auto;
+		display: flex;
+		padding-left: 5%;
+		justify-content: center;
+	}
+	.imagecon{
+		width: 80%;
+		margin-right: 0px !important;
+		display: inline-block;	
+		justify-content: center;	
+	}
+	#myBtn{
+		margin-left: 10%;
+	}
+	#btn{
+		margin-left: 15%;
+	}
+	.email{
+		font-weight: bold;
+		margin-bottom: 2%;
+	}
+	.name{
+		font-weight: bold;
+		margin-top: 2%;
+		margin-bottom: 1%;
+	}
+
+}
