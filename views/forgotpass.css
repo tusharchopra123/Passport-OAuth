@@ -12,6 +12,10 @@ account-verification, email-verified-confirmation, enter-email, forgot-password,
     font-family: HelveticaNeueW01-Thin,HelveticaNeueW02-Thin,HelveticaNeueW10-35Thin,sans-serif;
     background-color: #fff;
 }
+body{
+    background-color: #96c8fb;
+background-image: linear-gradient(315deg, #96c8fb 0%, #ddbdfc 74%);
+}
 .box{
   background: red;
   padding: 15px;
@@ -104,4 +108,81 @@ input[type="email"]:hover{
     font-weight: bold;
     width: 100px;
     outline-style:none !important;
+}
+@media (min-width:260px) and (max-width:814px){
+	.container{
+		width: 90%;
+	}
+	.box{
+        padding: 15px;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateX(-50%) translateY(-80%);
+        -webkit-transform: translate(-50%,-80%);
+        transform: translate(-50%,-80%);
+        border: 3px solid rgb(179, 245, 179);
+        border-radius: 30px;
+        font-family: HelveticaNeueW01-Thin,HelveticaNeueW02-Thin,HelveticaNeueW10-35Thin,sans-serif;
+        background-color: #fff;
+        width: 80%;
+      }
+      .forgot-password-instructions{
+          margin: 8% auto;
+          font-size: 2vh;
+      }
+      h1{
+        font-size: 5vh;
+        font-weight: bold;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }
+      [error-tip]:before {
+        content:'';
+        /* hides the tooltip when not hovered */
+        display:none;
+        content:'';
+        display:none;
+        border-bottom: 7px solid transparent ;
+        border-right: 7px solid #e61919;
+        border-top: 7px solid transparent;
+        position:absolute;
+        top:91%;
+        left:35px;
+        z-index:8;
+        font-size:0;
+        line-height:0;
+        width:0;
+        height:0;
+        position:absolute;
+        top:56%;
+        left:86%;
+        z-index:8;
+        font-size:0;
+        line-height:0;
+        width:0;
+        height:0;
+    }
+    [error-tip]:after {
+        display:none;
+        content:attr(error-tip);
+        position:absolute;
+        top:49.5%;
+        left:55%;
+        padding:5px 8px;
+        background:#e61919;
+        color:#fff;
+        z-index:9;
+        font-size: 0.75em;
+        height:28px;
+        line-height:18px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        white-space:nowrap;
+        word-wrap:normal;
+    }
+    
+    [error-tip][if='0']:before,
+    [error-tip][if='0']:after {
+        display:block;
+    }
 }
