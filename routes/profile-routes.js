@@ -15,7 +15,7 @@ const authCheck = (req,res,next)=>{
         next()
     }
 }
-route.get('/',(req,res)=>{
+route.get('/',authCheck,(req,res)=>{
     res.render('profile',{user:req.user[0]})
     //res.status(200).send({ message: req.user[0].username });
 })
