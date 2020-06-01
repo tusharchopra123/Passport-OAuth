@@ -20,7 +20,7 @@ route.get('/google',passport.authenticate('google',{
     scope:['profile','email']
 }))
 route.get('/facebook',passport.authenticate('facebook',{
-    scope: ['user_friends', 'email', 'public_profile']
+    scope: [ 'email', 'public_profile']
 }))
 route.get('/facebook/redirect',passport.authenticate('facebook',{failureRedirect: '/login'}),(req,res)=>{
     res.redirect('/profile/')
