@@ -62,7 +62,7 @@ passport.use(
 passport.use(new FacebookStrategy({
     clientID: keys.facebook.clientID,
     clientSecret: keys.facebook.clientSecret,
-    callbackURL: "https://login.tush.tech/facebook/redirect",
+    callbackURL: "https://login.tush.tech/auth/facebook/redirect",
     profileFields: ['id','displayName','photos','email']
   },
   function(accessToken, refreshToken, profile, done) {
