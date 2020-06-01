@@ -12,6 +12,9 @@ route.get('/signup',(req,res)=>{
 route.get('/login',(req,res)=>{
     res.sendFile(path.join(__dirname,'../views/login.html'))
 })
+route.get('/privacy-policy',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../views/privacy-policy.html'))
+})
 route.post('/forgotpassword',(req,res)=>{
     var email=req.body.email;
     User.findOne({where:{emailId :email,authenticationType:'local'}})
