@@ -157,14 +157,14 @@ function sendmail(tomailid,hash,fp){
             from: keys.gmail.mail,
             to: tomailid, 
             subject: 'Reset Your Password', 
-            text: 'Reset your password by clicking on the link (link is valid upto five minutes only) '+'http://login.tush.tech/forgot?id='+hash+'&tm='+tm+'&mail='+tomailid,
+            text: 'Reset your password by clicking on the link (link is valid upto five minutes only) '+'https://login.tush.tech/forgot?id='+hash+'&tm='+tm+'&mail='+tomailid,
         };
     }else if(fp==0){
     mailDetails = { 
         from: keys.gmail.mail,
         to: tomailid, 
         subject: 'Activate Your Account', 
-        text: 'Verify your account by clicking on the link '+'http://login.tush.tech/activate?id='+hash+'&mail='+tomailid+'&tm='+tm+' .'+ 'This Link will expire in 10 minutes',
+        text: 'Verify your account by clicking on the link '+'https://login.tush.tech/activate?id='+hash+'&mail='+tomailid+'&tm='+tm+' .'+ 'This Link will expire in 10 minutes',
     }; }
     // https://myaccount.google.com/lesssecureapps
     mailTransporter.sendMail(mailDetails, function(err, data) { 

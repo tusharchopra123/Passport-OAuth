@@ -26,7 +26,7 @@ passport.deserializeUser((id,done)=>{
 })
 passport.use(
     new GoogleStrategy({
-        callbackURL:"http://login.tush.tech/auth/google/redirect",
+        callbackURL:"https://login.tush.tech/auth/google/redirect",
         clientID:keys.google.clientID,
         clientSecret: keys.google.clientSecret
         //options for google strategy
@@ -62,7 +62,7 @@ passport.use(
 passport.use(new FacebookStrategy({
     clientID: keys.facebook.clientID,
     clientSecret: keys.facebook.clientSecret,
-    callbackURL: "http://login.tush.tech/auth/facebook/redirect",
+    callbackURL: "https://login.tush.tech/facebook/redirect",
     profileFields: ['id','displayName','photos','email']
   },
   function(accessToken, refreshToken, profile, done) {
