@@ -26,7 +26,7 @@ passport.deserializeUser((id,done)=>{
 })
 passport.use(
     new GoogleStrategy({
-        callbackURL:"https://login-portals.herokuapp.com/auth/google/redirect",
+        callbackURL:"http://login.tush.tech/auth/google/redirect",
         clientID:keys.google.clientID,
         clientSecret: keys.google.clientSecret
         //options for google strategy
@@ -62,7 +62,7 @@ passport.use(
 passport.use(new FacebookStrategy({
     clientID: keys.facebook.clientID,
     clientSecret: keys.facebook.clientSecret,
-    callbackURL: "https://login-portals.herokuapp.com/auth/facebook/redirect",
+    callbackURL: "http://login.tush.tech/auth/facebook/redirect",
     profileFields: ['id','displayName','photos','email']
   },
   function(accessToken, refreshToken, profile, done) {

@@ -76,7 +76,7 @@
       },
       methods:{
         load:function(){
-          axios.get('https://login-portals.herokuapp.com/profile/api')
+          axios.get('http://login.tush.tech/profile/api')
           .then(function(Response){
             console.log(Response)
             acc.data=Response
