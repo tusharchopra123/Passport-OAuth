@@ -4,6 +4,7 @@ It is a basic login page that could be attached in front of any website for the 
 \
 It also mails for the activation of new user which has signup using the local strategy.\
 It uses Vuejs as a frontend framework and for backend it uses nodejs.\
-The website is live on - (https://login.tush.tech)[https://login.tush.tech]
+\
+The website is live on :- [https://login.tush.tech](https://login.tush.tech)
 
 
